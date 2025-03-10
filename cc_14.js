@@ -48,7 +48,7 @@ function createSupportTicket(name, issueDescription, priorityLevel) {
     ticketContainer.appendChild(ticket);
 }
 
-// Task 3
+// Task 3: Converting NodeList to Arrays for Bulk Updates
 // highlights the high priority tickets
 function highlightHighPriorityTickets() {
     // selecting all tickets with the "high-priority" class
@@ -62,12 +62,26 @@ function highlightHighPriorityTickets() {
         ticket.style.border = '2px solid red';  // adds a red border to the ticket div
     });
 }
+// Task 4: Implementing Event Bubbling and Ticket Resolution
+
+// attaching an event listener to the ticket container when clicked
+function setupTicketContainerEventListener() {
+    const ticketContainer = document.getElementById('ticketContainer');
+
+    // event listener for the container to log a message when each ticket is clicked
+    ticketContainer.addEventListener('click', function(event) {
+        console.log('A ticket was clicked!');
+    });
+}
+
+// calling the function to set up event listener for event bubbling
+setupTicketContainerEventListener();
 
 
 // task 2 test cases
 createSupportTicket('Harley Davidson', 'Cannot login to account', 'High'); // output: Harley Davidson, Cannot login to account, High
 createSupportTicket('Jeff Buckley', 'Payment issue', 'Medium'); // output: Jeff Buckley, Payment issue, Medium
-createSupportTicket('Elton John', 'Order not received', 'Low'); // output: Elton John, Order not received, Low
+createSupportTicket('Elton John', 'Ordering navigation issue', 'Low'); // output: Elton John, Ordering navigation issue, Low
 
 highlightHighPriorityTickets(); 
 
