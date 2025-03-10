@@ -43,12 +43,66 @@ function createSupportTicket(name, issueDescription, priorityLevel) {
     ticket.appendChild(priorityLabel);
     ticket.appendChild(resolveButton);
 
+    // Task 5: Additional Challenge – Inline Editing of Support Tickets
+
+    // function to edit when double click the ticket
+    ticket.addEventListener('dblclick', function() {
+        enableInlineEditing(ticket, customerName, issueDescriptionElem, priorityLabel);
+    });
+
     // get the ticket container and append the new ticket
     const ticketContainer = document.getElementById('ticketContainer');
     ticketContainer.appendChild(ticket);
 }
+// function to allow inline editing when ticket is double clicked
+function enableInlineEditing(ticket, customerNameElem, issueDescriptionElem, priorityLabelElem) {
+    // create input fields to replace static text content
+    const customerNameInput = document.createElement('input');
+    customerNameInput.value = customerNameElem.textContent;
 
-// Task 3: Converting NodeList to Arrays for Bulk Updates
+    const issueDescriptionInput = document.createElement('textarea');
+    issueDescriptionInput.value = issueDescriptionElem.textContent;
+
+    const priorityInput = document.createElement('select');
+    const priorities = ['High', 'Medium', 'Low'];
+    priorities.forEach(priority => {
+        const option = document.createElement('option');
+        option.value = priority;
+        option.textContent = priority;
+        if (priority === priorityLabelElem.textContent.replace('Priority: ', '')) {
+            option.selected = true;
+        }
+        priorityInput.appendChild(option);
+    });
+
+    // replace static elements with input fields
+    ticket.replaceChild(customerNameInput, customerNameElem);
+    ticket.replaceChild(issueDescriptionInput, issueDescriptionElem);
+    ticket.replaceChild(priorityInput, priorityLabelElem);
+
+    // create and add a save button
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.classList.add('save-btn');
+    ticket.appendChild(saveButton);
+
+    // adds event listener for save button
+    saveButton.addEventListener('click', function() {
+        // update ticket details with new values inputted
+        customerNameElem.textContent = customerNameInput.value;
+        issueDescriptionElem.textContent = issueDescriptionInput.value;
+        priorityLabelElem.textContent = `Priority: ${priorityInput.value}`;
+
+        // removes the input fields and save button reverting to static content
+        ticket.removeChild(saveButton);
+        ticket.replaceChild(customerNameElem, customerNameInput);
+        ticket.replaceChild(issueDescriptionElem, issueDescriptionInput);
+        ticket.replaceChild(priorityLabelElem, priorityInput);
+    });
+}
+
+// Task 3: Converting NodeLists to Arrays for Bulk Updates
+
 // highlights the high priority tickets
 function highlightHighPriorityTickets() {
     // selecting all tickets with the "high-priority" class
@@ -79,7 +133,7 @@ setupTicketContainerEventListener();
 
 
 // task 2 test cases
-createSupportTicket('Harley Davidson', 'Cannot login to account', 'High'); // output: Harley Davidson, Cannot login to account, High
+createSupportTicket('Paul McCartney', 'Cannot login to account', 'High'); // output: Paul McCartney, Cannot login to account, High
 createSupportTicket('Jeff Buckley', 'Payment issue', 'Medium'); // output: Jeff Buckley, Payment issue, Medium
 createSupportTicket('Elton John', 'Ordering navigation issue', 'Low'); // output: Elton John, Ordering navigation issue, Low
 
