@@ -18,6 +18,13 @@ function createSupportTicket(name, issueDescription, priorityLevel) {
     const priorityLabel = document.createElement('p');
     priorityLabel.textContent = `Priority: ${priorityLevel}`;
     priorityLabel.classList.add('priority-level');
+
+    // Task 3: Converting NodeList to Arrays for Bulk Updates
+
+    // (adding if priority is high, add a class to change the border color)
+    if (priorityLevel === 'High') {
+        ticket.classList.add('high-priority-ticket'); // adds a class to the ticket div for border styling
+    }
     
     // creating the resolve button
     const resolveButton = document.createElement('button');
@@ -25,8 +32,9 @@ function createSupportTicket(name, issueDescription, priorityLevel) {
     resolveButton.classList.add('resolve-btn');
     
     // adding an event listener to the resolve button
-    resolveButton.addEventListener('click', function() {
+    resolveButton.addEventListener('click', function(event) {
         ticket.remove(); // removes the ticket when its clicked
+        event.stopPropagation(); // prevents the click event from bubbling up to the parent container
     });
     
     // append all elements to the ticket div
@@ -40,7 +48,30 @@ function createSupportTicket(name, issueDescription, priorityLevel) {
     ticketContainer.appendChild(ticket);
 }
 
+// Task 3
+// highlights the high priority tickets
+function highlightHighPriorityTickets() {
+    // selecting all tickets with the "high-priority" class
+    const highPriorityTickets = document.querySelectorAll('.high-priority-ticket');
+
+    // converts nodeList to array
+    const highPriorityTicketsArray = Array.from(highPriorityTickets);
+
+    // loop through each ticket 
+    highPriorityTicketsArray.forEach(ticket => {
+        ticket.style.border = '2px solid red';  // adds a red border to the ticket div
+    });
+}
+
+
 // task 2 test cases
 createSupportTicket('Harley Davidson', 'Cannot login to account', 'High'); // output: Harley Davidson, Cannot login to account, High
-createSupportTicket('Elton John', 'Order not received', 'Low'); // output: Elton John, Order not received, Low
 createSupportTicket('Jeff Buckley', 'Payment issue', 'Medium'); // output: Jeff Buckley, Payment issue, Medium
+createSupportTicket('Elton John', 'Order not received', 'Low'); // output: Elton John, Order not received, Low
+
+highlightHighPriorityTickets(); 
+
+
+
+
+

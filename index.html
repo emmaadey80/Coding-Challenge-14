@@ -4,17 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support Tickets</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(209, 203, 234);
+            margin: 10px;
+        }
+        header, footer {
+            padding: 9px;
+            text-align: center;
+            background-color: rgb(237, 244, 222);
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        main {
+            padding: 10px;
+        }
+        .ticket {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.resolve-btn {
+    background-color: rgb(6, 119, 27);
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.resolve-btn:hover {
+    background-color: rgb(3, 42, 7);
+}
+#ticketContainer {
+            background-color: rgb(246, 242, 220); 
+            border: 2px solid rgba(0, 0, 0, 0.972);
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        </style>
 </head>
 <body>
 
     <header>
-        <h1>Support Ticket System</h1>
-        <p>Manage customer support requests efficiently.</p>
+        <h1>Customer Support Ticket System</h1>
+        <p>Manage customer support requests efficiently</p>
     </header>
 
     <main>
-        <button id="addTicketButton">Create Ticket</button>
         <div id="ticketContainer"></div>
     </main>
 
